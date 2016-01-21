@@ -1,0 +1,189 @@
+<section id="dashboard-view" class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="vm.userForm" novalidate>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': vm.userForm.name.$touched && vm.userForm.name.$invalid }">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control"
+                                   ng-model="main.name"
+                                   ng-minlength="5"
+                                   ng-maxlength="10"
+                                   required>
+
+                            <div class="help-block" ng-messages="vm.userForm.name.$error"
+                                 ng-if="vm.userForm.name.$touched">
+                                <p ng-message="minlength">Your name is too short.</p>
+                                <p ng-message="maxlength">Your name is too long.</p>
+                                <p ng-message="required">Your name is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': vm.userForm.phone.$touched && vm.userForm.phone.$invalid }">
+                            <label>Phone</label>
+                            <input type="tel" name="phone" class="form-control"
+                                   ng-model="main.phone"
+                                   ng-minlength="5"
+                                   ng-maxlength="10"
+                                   required>
+
+                            <div class="help-block" ng-messages="vm.userForm.phone.$error"
+                                 ng-if="vm.userForm.phone.$touched">
+                                <p ng-message="minlength">Your phone is too short.</p>
+                                <p ng-message="maxlength">Your phone is too long.</p>
+                                <p ng-message="required">Your phone is required.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <pre>userForm.name.$error = {{ vm.userForm.name.$error | json }}</pre>
+                    <pre>userForm.name.$error = {{ vm.userForm.phone.$error | json }}</pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group form-group-lg form-group-icon-left"><i
+                        class="fa fa-map-marker input-icon"></i>
+                        <label>From</label>
+                        <select name="fromCity" class="form-control"
+                                data-ng-options="o as o.title for o in vm.cities track by vm.id"
+                                data-ng-model="flightCtrl.fromCity" required>
+                            <option style="display:none" value="">select city</option>
+                        </select>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-lg form-group-icon-left"><i
+                        class="fa fa-map-marker input-icon"></i>
+                        <label>To</label>
+                        <select name="toCity" class="form-control"
+                                data-ng-options="o as o.title for o in vm.cities track by o.id"
+                                data-ng-model="flightCtrl.toCity" required>
+                            <option style="display:none" value="">select city</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-daterange" data-date-format="M d, D">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group form-group-lg form-group-icon-left"><i
+                                    class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                    <label>Departing</label>
+                                    <input class="form-control" name="start" type="date" ng-model="flightCtrl.startDate"
+                                           required/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group form-group-lg form-group-select-plus">
+                                    <label>Passengers</label>
+                                    <select name="passengers" data-ng-options="o as o for o in [1,2,3,4,5]"
+                                            ng-model="flightCtrl.passengers" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+            <ul class="today-datas">
+            <li class="blightblue">
+            <div class="pull-left"><i class="fa fa-plane"></i></div>
+            <div class="datas-text pull-right">
+            <span class="bold">May 18 - 19, 2015</span> Castle Resort, Neverland
+            </div>
+            <div class="clearfix"></div>
+            </li>
+
+            <li class="borange">
+            <div class="pull-left"><i class="fa fa-envelope"></i></div>
+            <div class="datas-text pull-right">
+            <span class="bold">{{vm.messageCount}}</span> Messages
+            </div>
+            <div class="clearfix"></div>
+            </li>
+
+            </ul>
+            </div>
+            </div>
+            <div class="row">
+                <col-md-12>
+                    <div class="widget wgreen">
+                        <div ht-widget-header title="Cities"
+                             allow-collapse="true"></div>
+                    </div>
+                    <div class="widget-content text-center text-info">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="c in vm.cities">
+                                <td>{{c.title}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </col-md-12>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="widget wviolet">
+                        <div ht-widget-header title="People"
+                             allow-collapse="true"></div>
+                        <div class="widget-content text-center text-info">
+                            <table class="table table-condensed table-striped">
+                                <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Location</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="p in vm.people">
+                                    <td>{{p.firstName}}</td>
+                                    <td>{{p.lastName}}</td>
+                                    <td>{{p.age}}</td>
+                                    <td>{{p.location}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-foot">
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="widget wgreen">
+                        <div ht-widget-header title="{{vm.news.title}}"
+                             allow-collapse="true"></div>
+                        <div class="widget-content text-center text-info">
+                            <small>{{vm.news.description}}</small>
+                        </div>
+                        <div class="widget-foot">
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
